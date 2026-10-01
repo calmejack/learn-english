@@ -60,6 +60,8 @@ export interface ProgressState {
   totalXp: number;
   dailyGoal: number; // XP goal
   theme: ThemeMode;
+  /** Home tip strip dismissed; cleared on reset so tip shows again */
+  tipDismissed: boolean;
   words: Record<string, WordProgress>;
   completedLessons: string[];
   daily: DailyStats;

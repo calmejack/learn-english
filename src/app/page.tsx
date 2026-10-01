@@ -1,32 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { lessons, words } from "@/data/lessons";
 import { ProgressBar } from "@/components/ProgressBar";
 import { StatCard } from "@/components/StatCard";
 import { useProgressContext } from "@/hooks/ProgressProvider";
 
-const TIP_KEY = "learn-english-tip-dismissed";
-
 export default function HomePage() {
-  const { state, hydrated, dueWordIds, learnedCount } = useProgressContext();
-  const [showTip, setShowTip] = useState(() => {
-    if (typeof window === "undefined") return false;
-    try {
-      return !localStorage.getItem(TIP_KEY);
-    } catch {
-      return true;
-    }
-  });
+  const { state, hydrated, dueWordIds, learnedCount, setTipDismissed } =
+    useProgressContext();
 
   const dismissTip = () => {
-    setShowTip(false);
-    try {
-      localStorage.setItem(TIP_KEY, "1");
-    } catch {
-      // ignore
-    }
+    setTipDismissed(true);
   };
 
   if (!hydrated || !state) {
@@ -57,7 +42,7 @@ export default function HomePage() {
         </p>
       </header>
 
-      {showTip && (
+      {!state.tipDismissed && (
         <div className="relative rounded-2xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-900 dark:border-teal-900 dark:bg-teal-950/50 dark:text-teal-100">
           <button
             type="button"

@@ -260,7 +260,7 @@ export default function SettingsPage() {
           重置进度 Reset progress
         </h2>
         <p className="mt-1 text-xs text-rose-700/80 dark:text-rose-300/80">
-          清除 streak、XP、单词进度。主题设置会保留。此操作不可撤销。
+          清除 streak、XP、单词进度与首页提示关闭状态（重置后提示会再出现）。主题设置会保留。此操作不可撤销。
         </p>
         {!confirmReset ? (
           <button

@@ -27,6 +27,7 @@ export function createDefaultProgress(): ProgressState {
     totalXp: 0,
     dailyGoal: DEFAULT_DAILY_GOAL,
     theme: "system",
+    tipDismissed: false,
     words: {},
     completedLessons: [],
     daily: emptyDaily(),
@@ -75,7 +76,7 @@ export function loadProgress(): ProgressState {
     if (!raw) return createDefaultProgress();
     const parsed = JSON.parse(raw) as ProgressState;
     if (!parsed || parsed.version !== 1) return createDefaultProgress();
-    return rollDailyIfNeeded({
+    const merged = rollDailyIfNeeded({
       ...createDefaultProgress(),
       ...parsed,
       words: parsed.words ?? {},
@@ -85,7 +86,24 @@ export function loadProgress(): ProgressState {
           ? parsed.unlockedLessons
           : [lessons[0]?.id ?? "greetings"],
       daily: parsed.daily ?? emptyDaily(),
+      tipDismissed: Boolean(parsed.tipDismissed),
     });
+    // Migrate legacy standalone tip key into ProgressState once
+    try {
+      const legacyTip = localStorage.getItem("learn-english-tip-dismissed");
+      if (legacyTip && !merged.tipDismissed) {
+        const next = { ...merged, tipDismissed: true };
+        localStorage.removeItem("learn-english-tip-dismissed");
+        saveProgress(next);
+        return next;
+      }
+      if (legacyTip) {
+        localStorage.removeItem("learn-english-tip-dismissed");
+      }
+    } catch {
+      // ignore
+    }
+    return merged;
   } catch {
     return createDefaultProgress();
   }
@@ -159,6 +177,7 @@ export function parseProgressImport(
         : null,
     totalXp: Math.max(0, Number(p.totalXp) || 0),
     dailyGoal: Math.max(10, Math.min(500, Number(p.dailyGoal) || DEFAULT_DAILY_GOAL)),
+    tipDismissed: Boolean(p.tipDismissed),
   };
 
   return rollDailyIfNeeded(merged);

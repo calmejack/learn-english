@@ -186,6 +186,13 @@ export function useProgress() {
     [update]
   );
 
+  const setTipDismissed = useCallback(
+    (dismissed: boolean) => {
+      update((s) => ({ ...s, tipDismissed: dismissed }));
+    },
+    [update]
+  );
+
   const resetAll = useCallback(() => {
     setState((prev) => resetStored(prev?.theme));
   }, []);
@@ -235,6 +242,7 @@ export function useProgress() {
     completeLesson,
     setDailyGoal,
     setTheme,
+    setTipDismissed,
     resetAll,
     importProgress,
     exportProgress,
