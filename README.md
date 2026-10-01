@@ -59,11 +59,22 @@ Other scripts:
 npm run build
 npm run start
 npm run lint
+npm test
 ```
 
 Bun also works (`bun install` / `bun run dev`) if you prefer.
 
 ---
+
+## Deploy · 线上
+
+生产环境已公开部署（Deployment Protection 已关闭）：
+
+**https://learn-english-ruby-nu.vercel.app**
+
+备用别名：https://learn-english-calmejacks-projects.vercel.app
+
+GitHub 仓库 `calmejack/learn-english` 已关联 Vercel 项目 `learn-english`。若访问仍提示登录 Vercel，请确认项目的 Deployment Protection 已关闭。
 
 ## Lessons · 课程主题
 
