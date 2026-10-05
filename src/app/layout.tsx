@@ -14,10 +14,29 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Daily English · 每日英语",
+  title: {
+    default: "Daily English · 每日英语",
+    template: "%s · Daily English",
+  },
   description:
-    "短时每日课程、间隔复习与词库 — a polished daily English learning app for Chinese learners.",
+    "每日短课、连续打卡与经验值、间隔复习（SRS）和个人词库 — a polished daily English learning app for Chinese learners.",
   applicationName: "Daily English",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Daily English",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
