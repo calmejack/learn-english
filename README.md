@@ -66,6 +66,25 @@ Bun also works (`bun install` / `bun run dev`) if you prefer.
 
 ---
 
+## Test · 测试
+
+单元测试使用 [Vitest](https://vitest.dev)：
+
+```bash
+npm test        # vitest run — 单次运行全部测试
+npx vitest      # watch 模式，改代码自动重跑
+```
+
+Covered today · 当前覆盖：
+
+- `applyGrade` — SRS 调度：again / hard / good / easy 对间隔、重复次数、ease 与熟练度的影响
+- `todayKey` — 本地日期键格式 `YYYY-MM-DD`
+- `parseProgressImport` — 进度 JSON 导入校验（拒绝无效数据、可保留主题设置）
+
+CI（GitHub Actions）会在 push / PR 时依次运行 `npm run lint`、`npm test`、`npm run build`。
+
+---
+
 ## Deploy · 线上
 
 生产环境已公开部署（Deployment Protection 已关闭）：
@@ -93,7 +112,7 @@ Complete a lesson to unlock the next. Completed lessons stay open for Practice. 
 ## Future ideas · 后续想法
 
 - More lesson packs / CEFR levels
-- Optional PWA offline install
+- PWA offline caching (service worker) — manifest + icons are already in place, so the app is installable to the home screen today
 - Grammar mini-tips tied to example sentences
 - Recorded native audio clips (beyond browser TTS)
 - Optional cloud sync (still privacy-first)
